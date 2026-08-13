@@ -81,7 +81,7 @@ end)
 
 ShaguTweaks.register = function(self, mod)
   -- add fallback captions and providers to categories
-  local provider = ShaguTweaks.provider or "|cffFF5555Mods:|r"
+  local provider = ShaguTweaks.provider or "|cffFF5555" .. ShaguTweaks.T["Mods"] .. ":|r"
   local category = mod.category or ShaguTweaks.T["General"]
   mod.category = official and category or provider .. " " .. category
 
@@ -127,20 +127,20 @@ SlashCmdList["STWEAKS"] = function(msg)
 
     -- validate input and set config
     if not ShaguTweaks.overwrites[index] then
-      local text = "|cffff5555Error:|r Overwrite |cffffcc00%s|r does not exists.|r"
+      local text = ShaguTweaks.T["|cffff5555Error:|r Overwrite |cffffcc00%s|r does not exists.|r"]
       stdout(string.format(text, index), 1, 1, 1, 1)
     elseif type(ShaguTweaks.overwrites[index]) ~= type(value) then
-      local text = "|cffff5555Error:|r Overwrite |cffffcc00%s|r requires to be type: |cffffcc00%s|r"
+      local text = ShaguTweaks.T["|cffff5555Error:|r Overwrite |cffffcc00%s|r requires to be type: |cffffcc00%s|r"]
       stdout(string.format(text, index, type(ShaguTweaks.overwrites[index])), 1, 1, 1, 1)
     else
       ShaguTweaks_config.overwrites[index] = value
-      local text = "Overwrite |cffffcc00%s|r is now set to: |cffffcc00%s|r"
+      local text = ShaguTweaks.T["Overwrite |cffffcc00%s|r is now set to: |cffffcc00%s|r"]
       stdout(string.format(text, index, input), 1, 1, 1, 1)
     end
   else
-    stdout("|cffffcc00Shagu|rTweaks overwrites:", 1, 1, 1, 1)
+    stdout(ShaguTweaks.T["|cffffcc00Shagu|rTweaks overwrites:"], 1, 1, 1, 1)
     stdout("|cffffcc00|r", 1, 1, 1, 1)
-    stdout("|cffff5555Warning:|r This is for experienced users only. Do not change values unless you know what you're doing. Use '/st reset' before submitting any bug.", 1, .8, .8, 1)
+    stdout(ShaguTweaks.T["|cffff5555Warning:|r This is for experienced users only. Do not change values unless you know what you're doing. Use '/st reset' before submitting any bug."], 1, .8, .8, 1)
     stdout("|cffffcc00|r", 1, 1, 1, 1)
     for name, value in ShaguTweaks.spairs(ShaguTweaks.overwrites) do
       stdout("  |cffaaaaaa/st|r " .. name .. " |cffffcc00" .. GetConfigValue(value), 1, 1, 1, 1)

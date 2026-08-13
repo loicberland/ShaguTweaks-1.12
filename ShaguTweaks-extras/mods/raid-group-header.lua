@@ -60,7 +60,7 @@ module.enable = function(self)
               header[group].text:SetAllPoints(header[group])
               header[group].text:SetJustifyH("CENTER")
               header[group].text:SetJustifyV("CENTER")
-              header[group].text:SetText("Group " .. group)
+              header[group].text:SetText(T["Group"] .. " " .. group)
             end
 
             -- toggle visibility if needed

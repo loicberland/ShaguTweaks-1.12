@@ -173,7 +173,7 @@ module.enable = function(self)
         ShowUIPanel(ItemRefTooltip)
         ItemRefTooltip:SetOwner(UIParent, "ANCHOR_PRESERVE")
         ItemRefTooltip:AddLine(quest_title, 1,1,0)
-        ItemRefTooltip:AddDoubleLine("Quest ID", quest_id, .6, .6, .6, 1, 1, 1)
+        ItemRefTooltip:AddDoubleLine(T["Quest ID"], quest_id, .6, .6, .6, 1, 1, 1)
         ItemRefTooltip:Show()
       end
       return
