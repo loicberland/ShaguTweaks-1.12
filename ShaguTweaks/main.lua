@@ -31,6 +31,19 @@ ShaguTweaks.T = setmetatable(ShaguTweaks.T, { __index = function(tab,key)
   return value
 end})
 
+-- Module titles are translated for display, but they were historically also
+-- used as SavedVariables keys. Keep the original English title as a stable
+-- configuration key so changing the client locale doesn't reset settings.
+ShaguTweaks.GetModuleConfigKey = function(title)
+  for key, translation in pairs(ShaguTweaks.T) do
+    if translation == title then
+      return key
+    end
+  end
+
+  return title
+end
+
 ShaguTweaks:RegisterEvent("ADDON_LOADED")
 ShaguTweaks:RegisterEvent("VARIABLES_LOADED")
 ShaguTweaks:SetScript("OnEvent", function()
@@ -52,8 +65,13 @@ ShaguTweaks:SetScript("OnEvent", function()
 
   -- read all registered mods
   for title, mod in pairs(ShaguTweaks.mods) do
+    -- migrate settings created by versions that used translated titles
+    if title ~= mod.title and ShaguTweaks_config[title] == nil and ShaguTweaks_config[mod.title] ~= nil then
+      ShaguTweaks_config[title] = ShaguTweaks_config[mod.title]
+    end
+
     -- write initial default config
-    if not ShaguTweaks_config[title] then
+    if ShaguTweaks_config[title] == nil then
       ShaguTweaks_config[title] = mod.enabled and 1 or 0
     end
 
@@ -85,9 +103,10 @@ ShaguTweaks.register = function(self, mod)
   local category = mod.category or ShaguTweaks.T["General"]
   mod.category = official and category or provider .. " " .. category
 
-  -- register mod
-  ShaguTweaks.mods[mod.title] = mod
-  return ShaguTweaks.mods[mod.title]
+  -- register mod using a locale-independent configuration key
+  local key = ShaguTweaks.GetModuleConfigKey(mod.title)
+  ShaguTweaks.mods[key] = mod
+  return ShaguTweaks.mods[key]
 end
 
 local GetConfigValue = function(conf)

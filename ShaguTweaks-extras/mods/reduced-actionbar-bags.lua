@@ -15,7 +15,7 @@ local module = ShaguTweaks:register({
 
 module.enable = function(self)
   -- only run if reduced actionbar is enabled
-  if ShaguTweaks_config[T["Reduced Actionbar Size"]] == 0 then return end
+  if ShaguTweaks_config["Reduced Actionbar Size"] == 0 then return end
 
   local frames = {
     KeyRingButton, CharacterBag3Slot, CharacterBag2Slot, CharacterBag1Slot,

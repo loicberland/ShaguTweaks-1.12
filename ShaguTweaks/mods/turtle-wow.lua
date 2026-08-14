@@ -21,7 +21,7 @@ local module = ShaguTweaks:register({
 
 module.enable = function(self)
   -- hide turtle-wow's target status texts
-  if ShaguTweaks_config[T["Real Health Numbers"]] == 1 then
+  if ShaguTweaks_config["Real Health Numbers"] == 1 then
     TargetHPText:Hide()
     TargetHPText.Show = function() return end
 
@@ -29,7 +29,7 @@ module.enable = function(self)
     TargetHPPercText.Show  = function() return end
   end
 
-  if ShaguTweaks_config[T["MiniMap Clock"]] == 1 then
+  if ShaguTweaks_config["MiniMap Clock"] == 1 then
     MinimapClock:SetScript("OnEnter", function()
       -- read game time
       local zh, zm = GetGameTime()
@@ -66,7 +66,7 @@ module.enable = function(self)
     HookWorldMapFrame_Maximize()
 
     -- re-apply worldmap window
-    if ShaguTweaks_config[T["WorldMap Window"]] == 1 then
+    if ShaguTweaks_config["WorldMap Window"] == 1 then
       WorldMapFrame:SetMovable(true)
       WorldMapFrame:EnableMouse(true)
 
